@@ -1,0 +1,124 @@
+.details-container {
+  min-height: 100vh;
+  background: var(--bg-dark);
+  padding: 0 0 2rem;
+}
+
+.details-loading {
+  text-align: center;
+  padding: 4rem;
+  color: var(--text-muted);
+}
+
+.details-card {
+  max-width: 640px;
+  margin: 0 auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: var(--shadow);
+}
+
+.detail-page {
+  margin: 2rem auto;
+}
+
+.details-back {
+  display: inline-block;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.details-back:hover {
+  text-decoration: underline;
+}
+
+.details-card h1 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.details-card h3 {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.details-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.details-meta p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.description {
+  margin-top: 1rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  white-space: pre-wrap;
+}
+
+.details-applied {
+  margin-top: 1.5rem;
+  padding: 0.75rem 1rem;
+  background: rgba(34, 197, 94, 0.2);
+  color: #4ade80;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+}
+
+.details-apply-form {
+  margin-top: 1.5rem;
+}
+
+.details-apply-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.details-textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--bg-dark);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  resize: vertical;
+  margin-bottom: 1rem;
+  outline: none;
+}
+
+.details-textarea:focus {
+  border-color: var(--accent);
+}
+
+.details-apply-btn {
+  padding: 0.75rem 1.5rem;
+  background: var(--gradient-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+
+.details-apply-btn:hover:not(:disabled) {
+  opacity: 0.95;
+}
+
+.details-apply-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
