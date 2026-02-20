@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Internships.css";
 import { motion } from "framer-motion";
+import API from "../services/api";
 
 function Internships() {
   const [internships, setInternships] = useState([]);
@@ -11,9 +12,8 @@ function Internships() {
       window.location.href = "/";
     }
 
-    fetch("http://localhost:3000/api/internships")
-      .then((res) => res.json())
-      .then((data) => setInternships(data))
+    API.get("/internships")
+      .then((res) => setInternships(res.data))
       .catch((err) => console.error(err));
   }, []);
 

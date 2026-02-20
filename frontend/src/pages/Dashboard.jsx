@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../services/api";
 
 const Dashboard = () => {
   const [applications, setApplications] = useState([]);
@@ -8,9 +8,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchApplications = async () => {
       try {
-        const res = await axios.get(
-          `http://localhost:3000/api/intern/dashboard/${internId}`
-        );
+        const res = await API.get(`/intern/dashboard/${internId}`);
         setApplications(res.data);
       } catch (err) {
         console.log(err);
