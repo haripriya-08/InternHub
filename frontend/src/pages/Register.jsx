@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
+import axios from "axios"; // Using direct axios to avoid service config issues
 import { useAuth } from "../context/AuthContext";
-import API from "../services/api";
 import "./Auth.css";
 
 export default function Register() {
@@ -24,22 +24,25 @@ export default function Register() {
     e.preventDefault();
     setError("");
     setLoading(true);
+
+    // YOUR LIVE RENDER URL
+    const API_URL = "https://internhub-4kk1.onrender.com/api";
+
     try {
-      const { data } = await API.post("/auth/register", {
+      const { data } = await axios.post(`${API_URL}/auth/register`, {
         name,
         email,
         password,
         role: roleParam === "admin" ? "admin" : role,
       });
+
       login(data.token, data.user);
       const target = data.user.role === "admin" ? "/admin" : "/intern";
       window.location.href = target;
-      return;
     } catch (err) {
+      console.error("Registration Error:", err);
       const msg = err.response?.data?.message;
-      const networkMsg =
-        !err.response && err.message ? "Cannot reach server. Is the backend running on port 5000?" : null;
-      setError(msg || networkMsg || "Registration failed. Please try again.");
+      setError(msg || "Cannot reach server. Please ensure your backend is live.");
     } finally {
       setLoading(false);
     }
@@ -88,7 +91,6 @@ export default function Register() {
             onChange={(e) => setName(e.target.value)}
             required
             className="auth-input"
-            autoComplete="name"
           />
           <input
             type="email"
@@ -97,7 +99,6 @@ export default function Register() {
             onChange={(e) => setEmail(e.target.value)}
             required
             className="auth-input"
-            autoComplete="email"
           />
           <input
             type="password"
@@ -107,7 +108,6 @@ export default function Register() {
             required
             minLength={6}
             className="auth-input"
-            autoComplete="new-password"
           />
           <button type="submit" className="auth-btn" disabled={loading}>
             {loading ? "Creating account…" : "Register"}
