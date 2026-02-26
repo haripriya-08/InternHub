@@ -5,7 +5,16 @@ const cors = require("cors");
 
 const app = express();
 
-app.use(cors());
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  "http://localhost:5173",
+].filter(Boolean);
+
+app.use(
+  cors({
+    origin: allowedOrigins.length > 0 ? allowedOrigins : "*",
+  })
+);
 app.use(express.json({ limit: "10mb" }));
 
 const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/internhub";
