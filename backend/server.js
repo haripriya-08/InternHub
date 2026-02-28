@@ -7,7 +7,7 @@ const app = express();
 
 const corsOptions = {
   origin: "https://intern-hub-virid.vercel.app",
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
   optionsSuccessStatus: 200, // Some legacy browsers choke on 204
