@@ -10,9 +10,11 @@ const corsOptions = {
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
+  optionsSuccessStatus: 200, // Some legacy browsers choke on 204
 };
 
 app.use(cors(corsOptions));
+// Handle the preflight OPTIONS request globally
 app.options("*", cors(corsOptions));
 app.use(express.json({ limit: "10mb" }));
 
