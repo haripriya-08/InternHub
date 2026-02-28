@@ -14,8 +14,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-// Handle the preflight OPTIONS request globally
-app.options("(.*)", cors(corsOptions));
 app.use(express.json({ limit: "10mb" }));
 
 const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/internhub";
