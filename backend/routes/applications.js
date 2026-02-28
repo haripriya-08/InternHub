@@ -61,7 +61,7 @@ router.get("/", auth, requireRole("admin"), async (req, res) => {
 });
 
 // Update application status (admin only)
-router.patch("/:id", auth, requireRole("admin"), async (req, res) => {
+router.put("/:id", auth, requireRole("admin"), async (req, res) => {
   try {
     const { status } = req.body;
     if (!["pending", "accepted", "rejected"].includes(status)) {

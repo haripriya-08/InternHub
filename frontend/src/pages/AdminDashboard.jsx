@@ -72,7 +72,7 @@ export default function AdminDashboard() {
 
   const updateStatus = async (appId, status) => {
     try {
-      await API.patch(`/applications/${appId}`, { status });
+      await API.put(`/applications/${appId}`, { status });
       setApplications((prev) =>
         prev.map((a) => (a._id === appId ? { ...a, status } : a))
       );
