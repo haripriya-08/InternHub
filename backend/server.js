@@ -5,19 +5,15 @@ const cors = require("cors");
 
 const app = express();
 
-const allowedOrigins = [
-  "https://intern-ol61zxy5x-haripriyaharithasa06-1360s-projects.vercel.app",
-  process.env.FRONTEND_URL,
-  "http://localhost:5173",
-].filter(Boolean);
+const corsOptions = {
+  origin: "https://intern-hub-virid.vercel.app",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+};
 
-app.use(
-  cors({
-    origin: allowedOrigins.length > 0 ? allowedOrigins : "*",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 app.use(express.json({ limit: "10mb" }));
 
 const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/internhub";
