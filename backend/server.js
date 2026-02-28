@@ -6,6 +6,7 @@ const cors = require("cors");
 const app = express();
 
 const allowedOrigins = [
+  "https://intern-ol61zxy5x-haripriyaharithasa06-1360s-projects.vercel.app",
   process.env.FRONTEND_URL,
   "http://localhost:5173",
 ].filter(Boolean);
@@ -13,6 +14,8 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: allowedOrigins.length > 0 ? allowedOrigins : "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
   })
 );
 app.use(express.json({ limit: "10mb" }));

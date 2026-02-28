@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import axios from "axios"; // Using direct axios to avoid service config issues
 import { useAuth } from "../context/AuthContext";
+import API from "../services/api";
 import "./Auth.css";
 
 export default function Register() {
@@ -25,11 +25,8 @@ export default function Register() {
     setError("");
     setLoading(true);
 
-    // YOUR LIVE RENDER URL
-    const API_URL = "https://internhub-4kk1.onrender.com/api";
-
     try {
-      const { data } = await axios.post(`${API_URL}/auth/register`, {
+      const { data } = await API.post("/auth/register", {
         name,
         email,
         password,

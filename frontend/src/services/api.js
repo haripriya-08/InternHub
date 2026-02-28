@@ -1,13 +1,11 @@
 import axios from "axios";
 
-const baseURL =
-  typeof import.meta !== "undefined" && import.meta.env?.VITE_API_URL
-    ? import.meta.env.VITE_API_URL.replace(/\/$/, "") + "/api"
-    : "/api";
+const baseURL = "https://internhub-4kk1.onrender.com/api";
 
 const API = axios.create({
   baseURL,
   headers: { "Content-Type": "application/json" },
+  withCredentials: true,
 });
 
 API.interceptors.request.use((config) => {
