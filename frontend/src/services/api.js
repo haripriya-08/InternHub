@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const baseURL = "https://internhub-4kk1.onrender.com/api";
-
+const baseURL = import.meta.env.VITE_API_URL;
 const API = axios.create({
   baseURL,
   headers: { "Content-Type": "application/json" },

@@ -103,5 +103,36 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ message: "Login failed. Please try again." });
   }
 });
+// Get currently logged-in user
+router.get("/me", async (req, res) => {
+  try {
+    const authHeader = req.headers.authorization;
 
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({ message: "No authentication token provided." });
+    }
+
+    const token = authHeader.split(" ")[1];
+
+    const decoded = jwt.verify(token, secret);
+
+    const user = await User.findById(decoded.userId).select("-password");
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    res.json({
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+    });
+  } catch (err) {
+    console.error("Me error:", err.message);
+    return res.status(401).json({ message: "Invalid or expired token." });
+  }
+});
 module.exports = router;

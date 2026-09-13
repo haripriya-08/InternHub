@@ -1,3 +1,4 @@
+import API from "../services/api";
 import { createContext, useContext, useState, useEffect } from "react";
 
 const AuthContext = createContext(null);
@@ -11,17 +12,38 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const stored = localStorage.getItem(USER_KEY);
-    if (stored) {
-      try {
-        setUser(JSON.parse(stored));
-      } catch {
-        localStorage.removeItem(USER_KEY);
-        localStorage.removeItem(TOKEN_KEY);
-      }
+  const checkAuth = async () => {
+    const storedToken = localStorage.getItem(TOKEN_KEY);
+
+    if (!storedToken) {
+      setLoading(false);
+      return;
     }
-    setLoading(false);
-  }, []);
+
+    try {
+      const response = await API.get("/auth/me");
+
+      const loggedInUser = response.data.user;
+
+      setUser(loggedInUser);
+      setToken(storedToken);
+
+      localStorage.setItem(USER_KEY, JSON.stringify(loggedInUser));
+    } catch (error) {
+      console.log("Session expired or invalid.");
+
+      localStorage.removeItem(TOKEN_KEY);
+      localStorage.removeItem(USER_KEY);
+
+      setToken(null);
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  checkAuth();
+}, []);
 
   const login = (newToken, newUser) => {
     localStorage.setItem(TOKEN_KEY, newToken);
